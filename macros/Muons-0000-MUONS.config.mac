@@ -37,4 +37,4 @@
 /nexus/random_seed 5723043
 /nexus/persistency/hdf5 true
 /nexus/persistency/start_id 250
-/nexus/persistency/outputFile /scratch/Muons-0000-MUONS
+/nexus/persistency/outputFile Muons-0000-MUONS
