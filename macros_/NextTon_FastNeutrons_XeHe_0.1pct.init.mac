@@ -1,17 +1,13 @@
 ### GEOMETRY
-/Geometry/RegisterGeometry TON_SCALE
-
+/nexus/RegisterGeometry NextTonScale
 
 ### GENERATOR
-/Generator/RegisterGenerator NEUTRON_GENERATOR
-
+/nexus/RegisterGenerator SingleParticleGenerator
 
 ### ACTIONS
-/Actions/RegisterTrackingAction DEFAULT
-/Actions/RegisterEventAction DEFAULT
-/Actions/RegisterSteppingAction DEFAULT
-/Actions/RegisterRunAction DEFAULT
-
+/nexus/RegisterTrackingAction DefaultTrackingAction
+/nexus/RegisterEventAction DefaultEventAction
+/nexus/RegisterRunAction DefaultRunAction
 
 ### PHYSICS
 /PhysicsList/RegisterPhysics G4EmStandardPhysics_option4
@@ -21,14 +17,15 @@
 /PhysicsList/RegisterPhysics G4HadronPhysicsQGSP_BERT_HP
 /PhysicsList/RegisterPhysics NexusPhysics
 /PhysicsList/RegisterPhysics G4StepLimiterPhysics
-
 /PhysicsList/RegisterPhysics G4EmExtraPhysics
 /PhysicsList/RegisterPhysics G4StoppingPhysics
 /PhysicsList/RegisterPhysics G4IonPhysics
 
 /physics_lists/em/MuonNuclear true
 
-
 ### EXTRA CONFIGURATION
-/nexus/RegisterDelayedMacro macros/physics/Xe137.mac
-/nexus/RegisterMacro ./macros/NextTonNeutronsXeHe.config.mac
+/nexus/RegisterDelayedMacro /Users/mistryk2/Packages/nexus/macros/physics/Xe137.mac
+/nexus/RegisterMacro macros_/NextTon_FastNeutrons_XeHe_0.1pct.config.mac
+
+### PERSISTENCY MANAGER
+/nexus/RegisterPersistencyManager PersistencyManager
