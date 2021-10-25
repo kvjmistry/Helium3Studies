@@ -11,7 +11,10 @@ Events  : contains the energies of muons that go on to produce Xe137
 Metadata: contains the number of muons simulated and number that interact inside the TPC
 
 Usage (Requires Invisible Cities to be setup in order to run):
-python count_xe137.py
+python count_xe137.py <input mode> <wildcard to files>
+    
+<input mode>: # muon, Tneutron, Fneutron. (Tneutron = thermal neutron, Fneutron = fast neutron)
+
 
 """
 import os
@@ -25,7 +28,8 @@ from invisible_cities.io.mcinfo_io import load_mcconfiguration
 
 # ----------------------------------------------------------------------------------------
 # Configuration Parameters
-mode = "Tneutron" # muon, Tneutron, Fneutron. (Tneutron = thermal neutron, Fneutron = fast neutron)
+mode = sys.argv[1] # muon, Tneutron, Fneutron. (Tneutron = thermal neutron, Fneutron = fast neutron)
+print("Input mode is:", sys.argv[1])
 
 Total_Num_Events   = 0
 Total_Saved_Events = 0
@@ -36,10 +40,11 @@ E_Xe137 = []
 # Array for all simulated muon energies -- currently cant retrieve due to saved info in the file
 # Muon_E = [] 
 # ----------------------------------------------------------------------------------------
-filewildcard = "../outputs/NextTon_ThermalNeutron*"
+filewildcard = sys.argv[2]
 files = glob.glob(filewildcard)
 print("Total files read in:", len(files))
 
+# Loop over the files
 for f in files:
     # Load the configurations
     config = load_mcconfiguration(f) 
@@ -70,6 +75,7 @@ for f in files:
     # Loop over the saved events in the file
     for t in range(Start_ID, Start_ID + Saved_Events):
         
+        # Inform the user of the event number
         if mode == "muon":
             print("On event: ", t - Start_ID)
 
@@ -90,6 +96,7 @@ for f in files:
         for i in range(Num_Xe137):
             E_Xe137.append(primary.kin_energy.iloc[0])
     # ---------
+# ---------
 
 # Write the outputs to file
 if (mode == "muons"):
