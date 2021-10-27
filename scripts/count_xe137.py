@@ -42,6 +42,7 @@ E_Xe137 = []
 # ----------------------------------------------------------------------------------------
 filewildcard = sys.argv[2]
 files = glob.glob(filewildcard)
+print(files)
 print("Total files read in:", len(files))
 
 # Loop over the files

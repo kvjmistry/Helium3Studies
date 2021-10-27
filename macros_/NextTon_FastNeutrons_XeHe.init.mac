@@ -25,7 +25,7 @@
 
 ### EXTRA CONFIGURATION
 /nexus/RegisterDelayedMacro /Users/mistryk2/Packages/nexus/macros/physics/Xe137.mac
-/nexus/RegisterMacro macros_/NextTon_ThermalNeutrons_XeHe_0.1pct.config.mac
+/nexus/RegisterMacro macros_/NextTon_FastNeutrons_XeHe.config.mac
 
 ### PERSISTENCY MANAGER
 /nexus/RegisterPersistencyManager PersistencyManager
