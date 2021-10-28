@@ -108,4 +108,4 @@ elif (mode == "Fneutron"):
     file_out = 'FastNeutrons_to_Xe137_He_'+ pct +'.h5'
 
 pd.DataFrame({'E_Xe137':E_Xe137}).to_hdf(file_out,'Energy')
-pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events]}).to_hdf(file_out,'Metadata')
+pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events], 'Percentage':[pct]}).to_hdf(file_out,'Metadata')

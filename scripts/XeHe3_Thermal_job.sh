@@ -52,7 +52,7 @@ done
 echo "Executing Xe 137 Counting Script"
 source ~/packages/IC/setup_IC.sh
 python ~/packages/Helium3Studies/scripts/count_xe137.py Tneutron "NextTon_ThermalNeutron*.h5" 2>&1 | tee -a log_nexus_"${SLURM_ARRAY_TASK_ID}".txt
-mv ThemalNeutrons_to_Xe137_He_${Pct}.h5 "$(basename ThemalNeutrons_to_Xe137_He_${PCT}.h5 .h5)_${SLURM_ARRAY_TASK_ID}.h5"
+mv ThemalNeutrons_to_Xe137_He_${Pct}.h5 "$(basename ThemalNeutrons_to_Xe137_He_${Pct}.h5 .h5)_${SLURM_ARRAY_TASK_ID}.h5"
 
 # Cleaning up
 rm -v NextTon_ThermalNeutron*.h5
