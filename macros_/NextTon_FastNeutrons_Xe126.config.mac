@@ -6,7 +6,7 @@
 /Geometry/NextTonScale/vessel_thickn   2. cm
 #/Geometry/NextTonScale/gas_density    89. kg/m3
 /Geometry/NextTonScale/gas_pressure 15 bar
-/Geometry/NextTonScale/gas enrichedXe131
+/Geometry/NextTonScale/gas enrichedXe126
 /Geometry/NextTonScale/XePercentage 50
 
 /Geometry/NextTonScale/tank_visibility   false
