@@ -37,6 +37,9 @@ Total_Saved_Events = 0
 # Array for simulated primary uon/neutron energies that go on to produce Xe137
 E_Xe137 = [] 
 
+# Array for simulated energy of the neutron that is captured to produce Xe137
+E_n_Capture = [] 
+
 # Array for all simulated muon energies -- currently cant retrieve due to saved info in the file
 # Muon_E = [] 
 # ----------------------------------------------------------------------------------------
@@ -89,13 +92,18 @@ for f in files:
         # Total Xe137 Produced
         xe137 = MC_Particles.loc[t][MC_Particles.loc[t].particle_name.str.contains('Xe137')]
         Num_Xe137 = len(xe137)
+
+        n_cap = MC_Particles.loc[t][MC_Particles.loc[t].final_proc.str.contains('nCapture')]
         
         if (Num_Xe137 > 0):
-            print("Neutron capture(s) leading to", Num_Xe137, "Xe137")
+            print("Neutron capture(s) leading to", Num_Xe137, "Xe137", "Event: ", t)
+            print("Kinetic Energy of n at capture:", n_cap.kin_energy.iloc[0], "MeV")
+            # print(xe137['creator_proc'])
             
         # Loop over the numner of Xe137 produced and append the primary muon energy
         for i in range(Num_Xe137):
             E_Xe137.append(primary.kin_energy.iloc[0])
+            E_n_Capture.append(n_cap.kin_energy.iloc[0])
     # ---------
 # ---------
 
@@ -107,5 +115,5 @@ elif (mode == "Tneutron"):
 elif (mode == "Fneutron"):
     file_out = 'FastNeutrons_to_Xe137_He_'+ pct +'.h5'
 
-pd.DataFrame({'E_Xe137':E_Xe137}).to_hdf(file_out,'Energy')
+pd.DataFrame({'E_Xe137':E_Xe137, 'E_n_Capture':E_n_Capture}).to_hdf(file_out,'Energy')
 pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events], 'Percentage':[pct]}).to_hdf(file_out,'Metadata')
