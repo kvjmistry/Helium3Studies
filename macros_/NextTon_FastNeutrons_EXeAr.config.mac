@@ -1,0 +1,40 @@
+### GEOMETRY
+/Geometry/NextTonScale/active_diam   200. cm
+/Geometry/NextTonScale/active_length 200. cm
+/Geometry/NextTonScale/fcage_thickn    1. cm
+/Geometry/NextTonScale/ics_thickn     12. cm
+/Geometry/NextTonScale/vessel_thickn   2. cm
+#/Geometry/NextTonScale/gas_density    89. kg/m3
+/Geometry/NextTonScale/gas_pressure 15 bar
+/Geometry/NextTonScale/gas GEnrXeAr
+/Geometry/NextTonScale/XePercentage 50
+
+/Geometry/NextTonScale/tank_visibility   false
+/Geometry/NextTonScale/vessel_visibility true
+/Geometry/NextTonScale/ics_visibility    true
+/Geometry/NextTonScale/fcage_visibility  true
+
+### GENERATOR
+/Generator/SingleParticle/particle  neutron
+/Generator/SingleParticle/min_energy  10000000 eV
+/Generator/SingleParticle/max_energy  10000000 eV
+/Generator/SingleParticle/region FIELD_CAGE
+
+
+### PHYSICS (For fast Simulation)
+/PhysicsList/Nexus/clustering           false
+/PhysicsList/Nexus/drift                false
+/PhysicsList/Nexus/electroluminescence  false
+
+### VERBOSITIES
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+
+### JOB CONTROL
+/nexus/random_seed 1144
+/nexus/persistency/start_id 0
+/nexus/persistency/eventType background
+/nexus/persistency/outputFile outputs/NextTon_FastNeutron_EXeAr.next
