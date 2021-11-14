@@ -39,6 +39,10 @@ E_Xe137 = []
 
 # Array for simulated energy of the neutron that is captured to produce Xe137
 E_n_Capture = [] 
+E_n_Capture_all = [] # for all captures not just Xe137 
+
+# Array for element that captures the neutron
+Elem_n_Capture = [] 
 
 # Array for all simulated muon energies -- currently cant retrieve due to saved info in the file
 # Muon_E = [] 
@@ -94,6 +98,8 @@ for f in files:
         Num_Xe137 = len(xe137)
 
         n_cap = MC_Particles.loc[t][MC_Particles.loc[t].final_proc.str.contains('nCapture')]
+
+        n_cap_create= MC_Particles.loc[t][ (MC_Particles.loc[t]["creator_proc"] == "nCapture") & (MC_Particles.loc[t]["particle_name"] != "gamma")]
         
         if (Num_Xe137 > 0):
             print("Neutron capture(s) leading to", Num_Xe137, "Xe137", "Event: ", t)
@@ -104,6 +110,11 @@ for f in files:
         for i in range(Num_Xe137):
             E_Xe137.append(primary.kin_energy.iloc[0])
             E_n_Capture.append(n_cap.kin_energy.iloc[0])
+
+        for i in range(len(n_cap_create)):
+            Elem_n_Capture.append(n_cap_create.particle_name.iloc[i])
+            E_n_Capture_all.append(n_cap_create.kin_energy.iloc[i])
+
     # ---------
 # ---------
 
@@ -117,3 +128,4 @@ elif (mode == "Fneutron"):
 
 pd.DataFrame({'E_Xe137':E_Xe137, 'E_n_Capture':E_n_Capture}).to_hdf(file_out,'Energy')
 pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events], 'Percentage':[pct]}).to_hdf(file_out,'Metadata')
+pd.DataFrame({'Elem_n_Capture':Elem_n_Capture, 'E_n_Capture_all':E_n_Capture_all}).to_hdf(file_out,'Other')
