@@ -99,7 +99,7 @@ for f in files:
 
         n_cap = MC_Particles.loc[t][MC_Particles.loc[t].final_proc.str.contains('nCapture')]
 
-        n_cap_create= MC_Particles.loc[t][ ((MC_Particles.loc[t]["creator_proc"] == "nCapture") & (MC_Particles.loc[t]["particle_name"] != "gamma")) | (MC_Particles.loc[t]["particle_name"] == "triton") ]
+        n_cap_create= MC_Particles.loc[t][ ((MC_Particles.loc[t]["creator_proc"] == "nCapture") & (MC_Particles.loc[t]["particle_name"] != "gamma")) | (MC_Particles.loc[t]["particle_name"] == "triton") | (MC_Particles.loc[t]["particle_name"] == "Li7") ]
         
         if (Num_Xe137 > 0):
             print("Neutron capture(s) leading to", Num_Xe137, "Xe137", "Event: ", t)
