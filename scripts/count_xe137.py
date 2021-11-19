@@ -113,7 +113,20 @@ for f in files:
 
         for i in range(len(n_cap_create)):
             Elem_n_Capture.append(n_cap_create.particle_name.iloc[i])
-            E_n_Capture_all.append(n_cap_create.kin_energy.iloc[i])
+
+        # Save the neutron energy at capture
+        if (len(n_cap_create) > 0):
+
+            # Get the kinetic energy of the neutron at capture
+            n_x_cap = n_cap_create.initial_x.iloc[0]
+
+            # Loop over neutrons and get the neutron that has a final position that matches the creation of the capture element
+            neutrons = MC_Particles.loc[t][MC_Particles.loc[t].particle_name.str.contains('neutron')]
+            
+            for i in range(len(neutrons)):
+                if (neutrons.final_x.iloc[i] == n_x_cap):
+                    E_n_Capture_all.append(neutrons.kin_energy.iloc[i])
+                    # print(n_cap_create.particle_name.iloc[0], neutrons.kin_energy.iloc[i], t)
 
     # ---------
 # ---------
