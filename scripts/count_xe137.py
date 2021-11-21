@@ -117,16 +117,22 @@ for f in files:
         # Save the neutron energy at capture
         if (len(n_cap_create) > 0):
 
-            # Get the kinetic energy of the neutron at capture
-            n_x_cap = n_cap_create.initial_x.iloc[0]
+            # Loop over all elements created from a neutron capture
+            for j in range(len(n_cap_create)):
+                # Get the kinetic energy of the neutron at capture
+                n_x_cap = n_cap_create.initial_x.iloc[j]
 
-            # Loop over neutrons and get the neutron that has a final position that matches the creation of the capture element
-            neutrons = MC_Particles.loc[t][MC_Particles.loc[t].particle_name.str.contains('neutron')]
-            
-            for i in range(len(neutrons)):
-                if (neutrons.final_x.iloc[i] == n_x_cap):
-                    E_n_Capture_all.append(neutrons.kin_energy.iloc[i])
-                    # print(n_cap_create.particle_name.iloc[0], neutrons.kin_energy.iloc[i], t)
+                # Loop over neutrons and get the neutron that has a final position that matches the creation of the capture element
+                neutrons = MC_Particles.loc[t][MC_Particles.loc[t].particle_name.str.contains('neutron')]
+                
+                for i in range(len(neutrons)):
+                    if (neutrons.final_x.iloc[i] == n_x_cap):
+                        E_n_Capture_all.append(neutrons.kin_energy.iloc[i])
+                        # print(n_cap_create.particle_name.iloc[0], neutrons.kin_energy.iloc[i], t)
+
+        # Double check the matching correctly worked
+        if (len(E_n_Capture_all) != len(Elem_n_Capture)):
+            print ("Error mis-matched sizes")
 
     # ---------
 # ---------
