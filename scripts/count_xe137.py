@@ -97,8 +97,10 @@ for f in files:
         xe137 = MC_Particles.loc[t][MC_Particles.loc[t].particle_name.str.contains('Xe137')]
         Num_Xe137 = len(xe137)
 
+        # Neutrons that capture
         n_cap = MC_Particles.loc[t][MC_Particles.loc[t].final_proc.str.contains('nCapture')]
 
+        # Element created from neutron capture
         n_cap_create= MC_Particles.loc[t][ ((MC_Particles.loc[t]["creator_proc"] == "nCapture") & (MC_Particles.loc[t]["particle_name"] != "gamma")) | (MC_Particles.loc[t]["particle_name"] == "triton") | (MC_Particles.loc[t]["particle_name"] == "Li7") ]
         
         if (Num_Xe137 > 0):
@@ -121,18 +123,21 @@ for f in files:
             for j in range(len(n_cap_create)):
                 # Get the kinetic energy of the neutron at capture
                 n_x_cap = n_cap_create.initial_x.iloc[j]
+                n_y_cap = n_cap_create.initial_y.iloc[j]
+                n_z_cap = n_cap_create.initial_z.iloc[j]
 
                 # Loop over neutrons and get the neutron that has a final position that matches the creation of the capture element
                 neutrons = MC_Particles.loc[t][MC_Particles.loc[t].particle_name.str.contains('neutron')]
                 
                 for i in range(len(neutrons)):
-                    if (neutrons.final_x.iloc[i] == n_x_cap):
+                    if (neutrons.final_x.iloc[i] == n_x_cap and neutrons.final_y.iloc[i] == n_y_cap and neutrons.final_z.iloc[i] == n_z_cap):
                         E_n_Capture_all.append(neutrons.kin_energy.iloc[i])
+                        break
                         # print(n_cap_create.particle_name.iloc[0], neutrons.kin_energy.iloc[i], t)
 
-        # Double check the matching correctly worked
-        if (len(E_n_Capture_all) != len(Elem_n_Capture)):
-            print ("Error mis-matched sizes")
+    # Double check the matching correctly worked
+    if (len(E_n_Capture_all) != len(Elem_n_Capture)):
+        print ("Error mis-matched sizes",len(E_n_Capture_all),len(Elem_n_Capture), t )
 
     # ---------
 # ---------
