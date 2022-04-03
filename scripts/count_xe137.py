@@ -25,6 +25,7 @@ import glob
 from glob import iglob
 from invisible_cities.io.mcinfo_io import load_mcparticles_df
 from invisible_cities.io.mcinfo_io import load_mcconfiguration
+import re
 
 # ----------------------------------------------------------------------------------------
 # Configuration Parameters
@@ -46,6 +47,9 @@ Elem_n_Capture = []
 
 # Array for all simulated muon energies -- currently cant retrieve due to saved info in the file
 # Muon_E = [] 
+
+B10_flag = False
+
 # ----------------------------------------------------------------------------------------
 filewildcard = sys.argv[2]
 files = glob.glob(filewildcard)
@@ -76,9 +80,19 @@ for f in files:
     Total_Saved_Events+=Saved_Events
     print("Saved Events:", Saved_Events)
 
-    # Percentage of Xenon
-    pct  = str( config[config.param_key.str.contains("XePercentage")].param_value.iloc[0]  )
-    print("Xenon Percentage Simulated:", pct)
+    
+    # Boron Layer thickness
+    search = re.search("B10",f)
+    if (search.group() == "B10"):
+        pct  = str( config[config.param_key.str.contains("boron_thickn")].param_value.iloc[0]  )
+        print("Boron Thickness Simulated:", pct)
+        pct = pct.replace(' um', '')
+        B10_flag = True
+    else:
+        # Percentage of Xenon
+        pct  = str( config[config.param_key.str.contains("XePercentage")].param_value.iloc[0]  )
+        print("Xenon Percentage Simulated:", pct)
+
 
     # Loop over the saved events in the file
     for t in range(Start_ID, Start_ID + Saved_Events):
@@ -151,5 +165,11 @@ elif (mode == "Fneutron"):
     file_out = 'FastNeutrons_to_Xe137_He_'+ pct +'.h5'
 
 pd.DataFrame({'E_Xe137':E_Xe137, 'E_n_Capture':E_n_Capture}).to_hdf(file_out,'Energy')
-pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events], 'Percentage':[pct]}).to_hdf(file_out,'Metadata')
+
+if (B10_flag == False):
+    pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events], 'Percentage':[pct]}).to_hdf(file_out,'Metadata')
+else:
+    pd.DataFrame({'Num_Events':[Total_Num_Events], 'Saved_Events':[Total_Saved_Events], 'Thickness':[pct]}).to_hdf(file_out,'Metadata')
+
+
 pd.DataFrame({'Elem_n_Capture':Elem_n_Capture, 'E_n_Capture_all':E_n_Capture_all}).to_hdf(file_out,'Other')
