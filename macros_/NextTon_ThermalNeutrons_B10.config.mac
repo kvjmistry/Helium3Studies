@@ -8,6 +8,7 @@
 /Geometry/NextTonScale/gas_pressure 15 bar
 /Geometry/NextTonScale/gas enrichedXe
 /Geometry/NextTonScale/boron_thickn 1 um
+/Geometry/NextTonScale/boron_A 10
 
 /Geometry/NextTonScale/tank_visibility   false
 /Geometry/NextTonScale/vessel_visibility true
