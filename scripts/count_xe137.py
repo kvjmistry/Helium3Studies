@@ -82,8 +82,9 @@ for f in files:
 
     
     # Boron Layer thickness
-    search = re.search("B10",f)
-    if (search.group() == "B10"):
+    search1 = re.search("B10",f)
+    search2 = re.search("B11",f)
+    if (search1.group() == "B10" or search2.group() == "B11"):
         pct  = str( config[config.param_key.str.contains("boron_thickn")].param_value.iloc[0]  )
         print("Boron Thickness Simulated:", pct)
         pct = pct.replace(' um', '')
