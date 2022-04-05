@@ -19,7 +19,7 @@
 /Generator/SingleParticle/particle  neutron
 /Generator/SingleParticle/min_energy  10000000 eV
 /Generator/SingleParticle/max_energy  10000000 eV
-/Generator/SingleParticle/region ICS
+/Generator/SingleParticle/region INNER_SHIELDING
 
 
 ### PHYSICS (For fast Simulation)
