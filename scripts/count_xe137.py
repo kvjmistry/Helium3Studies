@@ -19,6 +19,7 @@ python count_xe137.py <input mode> <wildcard to files>
 """
 import os
 import sys
+from xml.etree.ElementTree import TreeBuilder
 import pandas as pd
 import numpy as np
 import glob
@@ -82,9 +83,14 @@ for f in files:
 
     
     # Boron Layer thickness
+    B10_find = False
+    B11_find = False
     search1 = re.search("B10",f)
     search2 = re.search("B11",f)
-    if (search1.group() == "B10" or search2.group() == "B11"):
+    if (search1): B10_find = True
+    if (search2): B11_find = True
+    
+    if (B10_find or B11_find):
         pct  = str( config[config.param_key.str.contains("boron_thickn")].param_value.iloc[0]  )
         print("Boron Thickness Simulated:", pct)
         pct = pct.replace(' um', '')
